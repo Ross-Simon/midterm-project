@@ -18,12 +18,6 @@ const SpaceCard = ({ space }) => {
       <div className="p-6">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-semibold text-gray-800">{space.name}</h3>
-          <div className="flex items-center">
-            <svg className="h-4 w-4 text-yellow-400 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <span className="ml-1 text-sm text-gray-600">4.5</span>
-          </div>
         </div>
         
         <p className="text-gray-600 mb-2">{space.location}</p>
@@ -32,12 +26,12 @@ const SpaceCard = ({ space }) => {
         </p>
         
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-bold text-blue-600">
-            {formatCurrency(space.price)}/session
+          <span className="text-2xl font-bold text-green-600">
+            {formatCurrency(space.price)}/Session
           </span>
           <button
             onClick={handleViewDetails}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition-colors"
           >
             View Details
           </button>

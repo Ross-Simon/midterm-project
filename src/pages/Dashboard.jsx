@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useBooking } from '../contexts/BookingContext'
 import Modal from '../components/Modal'
-import { formatCurrency, getStatusColor } from '../utils/formatters'
+import { formatCurrency, getStatusColor, formatDate } from '../utils/formatters'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -46,7 +46,7 @@ const Dashboard = () => {
             <p className="text-gray-600 mb-6">Start exploring study spaces and make your first booking!</p>
             <button
               onClick={() => navigate('/')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md transition-colors"
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md transition-colors"
             >
               Browse Spaces
             </button>
@@ -67,9 +67,20 @@ const Dashboard = () => {
                   </span>
                 </div>
                 
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-500 mb-1">Time Slot</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  {/* Booking Date */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500 mb-1">📅 Booking Date</label>
+                    <p className="text-gray-800 text-lg font-medium">
+                      {booking.selectedDate ? formatDate(booking.selectedDate) : 'Date not specified'}
+                    </p>
+                  </div>
+                  
+                  {/* Time Slot */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500 mb-1">⏰ Time Slot</label>
                     <p className="text-gray-800 text-lg font-medium">{booking.timeSlot}</p>
+                  </div>
                 </div>
                 
                 <div className="flex justify-between items-center pt-4 border-t border-gray-200">
@@ -103,8 +114,8 @@ const Dashboard = () => {
               <p className="text-gray-700 mb-6">
                 Are you sure you want to cancel your booking for{' '}
                 <strong>{cancellingBooking.spaceName}</strong> on{' '}
-                <strong>{formatDate(cancellingBooking.date)}</strong> at{' '}
-                <strong>{formatTime(cancellingBooking.time)}</strong>?
+                <strong>{cancellingBooking.selectedDate ? formatDate(cancellingBooking.selectedDate) : 'the selected date'}</strong> at{' '}
+                <strong>{cancellingBooking.timeSlot}</strong>?
               </p>
               <div className="flex space-x-4">
                 <button
@@ -119,7 +130,7 @@ const Dashboard = () => {
                 >
                   Yes, Cancel
                 </button>
-              </div>
+                </div>
             </>
           )}
         </Modal>

@@ -11,16 +11,21 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-blue-600 text-white shadow-lg">
+    <header className="bg-green-600 text-white shadow-lg border-b-2 border-white-800">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold hover:text-blue-200 transition-colors">
-          StudySpot PH
-        </Link>
+          <Link to="/" className="flex items-center space-x-3 hover:text-green-200 transition-colors">
+            <img 
+              src="/public/studyspot-logo.png" 
+              alt="StudySpot PH Logo" 
+              className="h-8 w-8 object-contain"
+            />
+            <span className="text-2xl font-bold">StudySpot PH</span>
+          </Link>
         
-        <nav className="flex items-center space-x-6">
+        <nav className="flex items-center space-x-6 font-bold">
           <Link 
             to="/" 
-            className="hover:text-blue-200 transition-colors"
+            className="hover:text-green-200 transition-colors"
           >
             Home
           </Link>
@@ -29,15 +34,15 @@ const Header = () => {
             <>
               <Link 
                 to="/dashboard/my-bookings" 
-                className="hover:text-blue-200 transition-colors"
+                className="hover:text-green-200 transition-colors font-bold"
               >
                 Dashboard
               </Link>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 font-bold">
                 <span className="text-sm">Welcome, {user.name}!</span>
                 <button
                   onClick={handleLogout}
-                  className="bg-blue-700 hover:bg-blue-800 px-3 py-1 rounded transition-colors"
+                  className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded transition-colors font-bold"
                 >
                   Logout
                 </button>
@@ -46,7 +51,7 @@ const Header = () => {
           ) : (
             <Link 
               to="/login" 
-              className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded transition-colors"
+              className="bg-green-700 hover:bg-green-800 px-4 py-2 rounded transition-colors font-bold"
             >
               Login
             </Link>

@@ -33,7 +33,7 @@ const Home = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading spaces...</p>
         </div>
       </div>
@@ -42,17 +42,29 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-blue-600 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">
-            Find Your Perfect Study Space
-          </h1>
-          <p className="text-xl text-blue-100">
-            Discover and book co-working spaces and study hubs across the Philippines
-          </p>
+            {/* Hero Section */}
+        <div className="relative bg-green-600 text-white py-16 min-h-[350px] flex items-center">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/public/hero-bg-img.jpg")'
+            }}
+          ></div>
+          
+          {/* Translucent Overlay */}
+          <div className="absolute inset-0 bg-green-800/70"></div>
+          
+          {/* Content */}
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h1 className="text-4xl font-bold mb-4 drop-shadow-lg font-bold">
+              Find Your Perfect Study Space
+            </h1>
+            <p className="text-xl text-white-200 drop-shadow-md font-semibold">
+              Discover and book top rated co-working spaces and study hubs across the Philippines!
+            </p>
+          </div>
         </div>
-      </div>
       
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
