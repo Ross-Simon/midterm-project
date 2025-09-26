@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import BookingForm from '../components/BookingForm'
 import { formatCurrency, fetchSpacesData } from '../utils/formatters'
 
+// Page to show detailed information about a specific study space
 const SpaceDetail = () => {
   const { spaceId } = useParams()
   const { isAuthenticated } = useAuth()
@@ -11,7 +12,7 @@ const SpaceDetail = () => {
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
 
-  useEffect(() => {
+  useEffect(() => { // Fetch space details based on spaceId from URL
     const loadSpace = async () => {
       try {
         const spacesData = await fetchSpacesData()
@@ -31,7 +32,7 @@ const SpaceDetail = () => {
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>
   }
 
-  if (!space) {
+  if (!space) { // Show error message when space is not found
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center">Space not found</div>
   }
 

@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
+// Use auth context to determine if user is logged in and display appropriate links
 const Header = () => {
   const { user, logout, isAuthenticated } = useAuth()
   const navigate = useNavigate()
 
+// Handle user logout and redirect to home
   const handleLogout = () => {
     logout()
     navigate('/')

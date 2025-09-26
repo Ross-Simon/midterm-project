@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 
+// Provides a button to scroll back to the top of the page when scrolled down
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false)
 

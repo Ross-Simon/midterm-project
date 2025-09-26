@@ -5,49 +5,109 @@ import { useBooking } from '../contexts/BookingContext'
 import { formatCurrency } from '../utils/formatters'
 
 const BookingForm = ({ space }) => {
+  const [selectedDate, setSelectedDate] = useState('') 
   const [selectedSlot, setSelectedSlot] = useState('')
-  const [selectedDate, setSelectedDate] = useState('') // Add date state
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const [error, setError] = useState('')
   const { user } = useAuth()
-  const { addBooking } = useBooking()
+  const { addBooking, getBookingsByUser } = useBooking()
   const navigate = useNavigate()
 
-  // Helper function to get today's date in YYYY-MM-DD format
+  // Function to get today's date in YYYY-MM-DD format, prevents selecting of past dates
   const getTodayDate = () => {
     const today = new Date()
     return today.toISOString().split('T')[0]
   }
 
+  // Check if the user already has the same exact booking, to prevent duplicates
+  const checkForDuplicateBooking = (spaceId, date, timeSlot) => {
+    const userBookings = getBookingsByUser(user.id)
+    return userBookings.some(booking => 
+      booking.spaceId === spaceId && 
+      booking.selectedDate === date && 
+      booking.timeSlot === timeSlot &&
+      booking.status === 'confirmed' // To check only confirmed bookings
+    )
+  }
+
+  // Handle form submission, creates a booking if no duplicates are found
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError('')
 
     try {
+      // Check for duplicate booking based on user, space, date, and time slot
+      const isDuplicate = checkForDuplicateBooking(space.id, selectedDate, selectedSlot)
+      
+      if (isDuplicate) {
+        setError(`You already have a booking for ${space.name} on ${new Date(selectedDate).toLocaleDateString('en-PH', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })} at ${selectedSlot}. Please choose a different date or time slot.`)
+        setIsSubmitting(false)
+        return
+      }
+
+      // Simulate delay
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      // Create booking object with necessary details
       const booking = {
         userId: user.id,
         spaceId: space.id,
         spaceName: space.name,
         spaceLocation: space.location,
-        selectedDate, // Include selected date
+        selectedDate,
         timeSlot: selectedSlot,
         totalPrice: space.price,
         status: 'confirmed'
       }
 
+      // Add booking to context and messages user of success or failure of booking
       addBooking(booking)
       alert('Booking confirmed successfully!')
       navigate('/dashboard/my-bookings')
     } catch (error) {
       console.error('Booking error:', error)
-      alert('Failed to create booking. Please try again.')
+      setError('Failed to create booking. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
   }
 
+  // Clear error when user changes selection inputs in date and time slot
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value)
+    setError('')
+  }
+
+  const handleSlotChange = (e) => {
+    setSelectedSlot(e.target.value)
+    setError('')
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h3 className="text-xl font-semibold mb-4">Book This Space</h3>
+      
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Date Input Field */}
@@ -58,7 +118,7 @@ const BookingForm = ({ space }) => {
           <input
             type="date"
             value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
+            onChange={handleDateChange}
             min={getTodayDate()}
             required
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
@@ -75,17 +135,27 @@ const BookingForm = ({ space }) => {
           </label>
           <select
             value={selectedSlot}
-            onChange={(e) => setSelectedSlot(e.target.value)}
+            onChange={handleSlotChange}
             required
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
           >
             <option value="">Select a time slot</option>
-            {space.time_slots.map(slot => (
-              <option key={slot} value={slot}>
-                {slot}
-              </option>
-            ))}
+            {space.time_slots.map(slot => {
+              // To check if this slot is already booked by the user for the selected date
+              const isAlreadyBooked = selectedDate && checkForDuplicateBooking(space.id, selectedDate, slot)
+              
+              return (
+                <option key={slot} value={slot} disabled={isAlreadyBooked}>
+                  {slot} {isAlreadyBooked ? '(Already booked)' : ''}
+                </option>
+              )
+            })}
           </select>
+          {selectedDate && (
+            <p className="text-sm text-gray-500 mt-1">
+              Note: Slots marked as "Already booked" are unavailable for the selected date.
+            </p>
+          )}
         </div>
 
         {/* Price Display */}

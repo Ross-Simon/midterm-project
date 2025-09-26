@@ -12,7 +12,7 @@ const AppRouter = () => {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/space/:spaceId" element={<SpaceDetail />} />
           <Route path="/login" element={<Login />} />
           <Route 
@@ -24,7 +24,7 @@ const AppRouter = () => {
             } 
           />
           {/* Redirect unknown routes to home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </div>
     </BrowserRouter>

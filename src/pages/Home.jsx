@@ -23,7 +23,7 @@ const Home = () => {
     loadSpaces()
   }, [])
 
-  // Filter spaces based on search term
+  // Filter spaces based on search term (by name or location)
   const filteredSpaces = spaces.filter(space =>
     space.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     space.location.toLowerCase().includes(searchTerm.toLowerCase())
@@ -42,9 +42,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-            {/* Hero Section */}
+            {/* Hero Section Display*/}
         <div className="relative bg-green-600 text-white py-16 min-h-[350px] flex items-center">
-          {/* Background Image */}
+          {/* Insert Background Image */}
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
@@ -52,10 +52,10 @@ const Home = () => {
             }}
           ></div>
           
-          {/* Translucent Overlay */}
+          {/* Translucent Overlay over Background Image */}
           <div className="absolute inset-0 bg-green-800/70"></div>
           
-          {/* Content */}
+          {/* Content of the Hero Section */}
           <div className="container mx-auto px-4 text-center relative z-10">
             <h1 className="text-4xl font-bold mb-4 drop-shadow-lg font-bold">
               Find Your Perfect Study Space
@@ -66,8 +66,8 @@ const Home = () => {
           </div>
         </div>
       
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      {/* Main Content Area below Hero Section*/} 
+      <div className="container mx-auto px-4 py-12"> 
         <SearchBar 
           searchTerm={searchTerm} 
           onSearchChange={setSearchTerm} 

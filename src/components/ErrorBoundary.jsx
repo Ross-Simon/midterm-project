@@ -1,11 +1,12 @@
-// Create ErrorBoundary.jsx
 import React from 'react'
 
+// Error Boundary to catch JavaScript errors in App
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false, error: null }
   }
+
 
   static getDerivedStateFromError(error) {
     return { hasError: true, error }

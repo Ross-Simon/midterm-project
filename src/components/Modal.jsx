@@ -1,20 +1,23 @@
 import { useEffect, useRef } from 'react'
 
-const Modal = ({ isOpen, onClose, title, children }) => {
+const Modal = ({ isOpen, onClose, title, children }) => { 
   const modalRef = useRef()
 
+  // Close modal on Esc 
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') onClose()
     }
 
+  // Close modal on outside click
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
         onClose()
       }
     }
 
-    if (isOpen) {
+    // create event listeners when modal is open and cleanup
+    if (isOpen) {  
       document.addEventListener('keydown', handleEscape)
       document.addEventListener('mousedown', handleClickOutside)
       document.body.style.overflow = 'hidden'
@@ -22,14 +25,14 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       document.body.style.overflow = 'unset'
     }
 
-    return () => {
+    return () => {  
       document.removeEventListener('keydown', handleEscape)
       document.removeEventListener('mousedown', handleClickOutside)
       document.body.style.overflow = 'unset'
     }
-  }, [isOpen, onClose])
+  }, [isOpen, onClose]) 
 
-  if (!isOpen) return null
+  if (!isOpen) return null 
 
   return (
     <div 

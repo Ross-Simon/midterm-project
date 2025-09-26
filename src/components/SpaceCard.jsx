@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { formatCurrency } from '../utils/formatters'
 
-const SpaceCard = ({ space }) => {
-  const navigate = useNavigate()
+const SpaceCard = ({ space }) => { // Props a space object that contains details about the study spot
+  const navigate = useNavigate() 
 
-  const handleViewDetails = () => {
-    navigate(`/space/${space.id}`)
+  const handleViewDetails = () => { 
+    navigate(`/space/${space.id}`) // Navigate to the space detail page based on space ID
   }
 
   return (

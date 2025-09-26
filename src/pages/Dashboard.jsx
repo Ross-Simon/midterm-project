@@ -5,6 +5,7 @@ import { useBooking } from '../contexts/BookingContext'
 import Modal from '../components/Modal'
 import { formatCurrency, getStatusColor, formatDate } from '../utils/formatters'
 
+// Dashboard page showing user's bookings and its management
 const Dashboard = () => {
   const { user } = useAuth()
   const { getBookingsByUser, removeBooking } = useBooking()
@@ -12,7 +13,7 @@ const Dashboard = () => {
   const [cancellingBooking, setCancellingBooking] = useState(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
+  useEffect(() => { // Load user's bookings on component mount or when user changes
     if (user) {
       const userBookings = getBookingsByUser(user.id)
       setBookings(userBookings)
@@ -20,7 +21,7 @@ const Dashboard = () => {
   }, [user, getBookingsByUser])
 
   const handleCancelBooking = () => {
-    if (cancellingBooking) {
+    if (cancellingBooking) { // Confirm cancellation of the selected booking
       removeBooking(cancellingBooking.id)
       setBookings(prev => prev.filter(b => b.id !== cancellingBooking.id))
       setCancellingBooking(null)
@@ -68,7 +69,7 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  {/* Booking Date */}
+                  {/* Booking Date Selection*/}
                   <div>
                     <label className="block text-sm font-medium text-gray-500 mb-1">📅 Booking Date</label>
                     <p className="text-gray-800 text-lg font-medium">
@@ -76,7 +77,7 @@ const Dashboard = () => {
                     </p>
                   </div>
                   
-                  {/* Time Slot */}
+                  {/* Time Slot Selection*/}
                   <div>
                     <label className="block text-sm font-medium text-gray-500 mb-1">⏰ Time Slot</label>
                     <p className="text-gray-800 text-lg font-medium">{booking.timeSlot}</p>

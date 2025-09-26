@@ -1,3 +1,5 @@
+// Provides a search bar interface that filters study spots by name or location
+
 const SearchBar = ({ searchTerm, onSearchChange }) => {
   return (
     <div className="mb-8">
