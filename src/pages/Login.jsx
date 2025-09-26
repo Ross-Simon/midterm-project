@@ -64,7 +64,7 @@ const Login = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
               placeholder="Enter your full name"
             />
           </div>
@@ -78,7 +78,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
               placeholder="Enter your email"
             />
           </div>
@@ -86,7 +86,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-3 px-4 rounded-md transition-colors"
+            className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-medium py-3 px-4 rounded-md transition-colors"
           >
             {isLoading ? 'Signing in...' : 'Sign In'}
           </button>
@@ -101,13 +101,6 @@ const Login = () => {
               className="w-full bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 text-gray-800 py-2 px-4 rounded-md transition-colors text-sm"
             >
               Login as Juan dela Cruz
-            </button>
-            <button
-              onClick={() => handleQuickLogin({ name: 'Maria Santos', email: 'maria@example.com' })}
-              disabled={isLoading}
-              className="w-full bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 text-gray-800 py-2 px-4 rounded-md transition-colors text-sm"
-            >
-              Login as Maria Santos
             </button>
           </div>
         </div>

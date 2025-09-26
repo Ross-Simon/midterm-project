@@ -38,7 +38,7 @@ const SpaceDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        <button onClick={() => navigate('/')} className="mb-6 text-blue-600">← Back to Spaces</button>
+        <button onClick={() => navigate('/')} className="mb-6 text-green-600">← Back to Spaces</button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
@@ -68,7 +68,7 @@ const SpaceDetail = () => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Booking Information</h3>
-              <p className="text-2xl font-bold text-blue-600 mb-4">
+              <p className="text-2xl font-bold text-green-600 mb-4">
                 {formatCurrency(space.price)}/session
               </p>
               <p className="text-gray-600 mb-4">Hours: {space.hours}</p>
@@ -78,7 +78,7 @@ const SpaceDetail = () => {
               ) : (
                 <div className="text-center">
                   <p className="text-gray-600 mb-4">Please login to book this space</p>
-                  <button onClick={() => navigate('/login')} className="bg-blue-600 text-white px-4 py-2 rounded">
+                  <button onClick={() => navigate('/login')} className="bg-green-600 text-white px-4 py-2 rounded">
                     Login to Book
                   </button>
                 </div>
