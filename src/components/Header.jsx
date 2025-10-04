@@ -17,7 +17,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-3 hover:text-green-200 transition-colors">
             <img 
-              src="/public/studyspot-logo.png" 
+              src="/studyspot-logo.png" 
               alt="StudySpot PH Logo" 
               className="h-8 w-8 object-contain"
             />
